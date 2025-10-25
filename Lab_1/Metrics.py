@@ -78,7 +78,6 @@ def main():
     print("\nModel metrics (threshold 0.5)")
     print(metrics_df[["roc_auc", "tp", "fp", "fn", "tn"]])
 
-    # ROC
     plt.figure()
     for name, y_proba in probes.items():
         fpr, tpr, _ = roc_curve(y_test, y_proba)
@@ -93,7 +92,6 @@ def main():
     plt.tight_layout()
     plt.show()
 
-    # PR
     plt.figure()
     for name, y_proba in probes.items():
         precision, recall, _ = precision_recall_curve(y_test, y_proba)
@@ -106,7 +104,6 @@ def main():
     plt.tight_layout()
     plt.show()
 
-    # Підбір порогу для мінімізації FN (на RandomForest без обмеження глибини)
     rf = RandomForestClassifier(n_estimators=500, random_state=42, n_jobs=-1).fit(X_train, y_train)
     y_proba_rf = rf.predict_proba(X_test)[:, 1]
     best_t, best_m = select_threshold_min_fn(y_test, y_proba_rf, grid_size=2001)
