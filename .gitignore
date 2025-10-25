@@ -7,6 +7,6 @@
 *.txt
 
 # Lab 4
-Lab_4/test
-Lab_4/train
-Lab_4/val
+Lab_4/data/test
+Lab_4/data/train
+Lab_4/data/val
