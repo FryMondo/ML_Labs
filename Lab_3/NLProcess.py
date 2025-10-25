@@ -7,7 +7,6 @@ from sklearn.feature_extraction.text import TfidfVectorizer, CountVectorizer, EN
 from sklearn.decomposition import LatentDirichletAllocation
 
 DATA_FILENAME = "Alice’s Adventures in Wonderland.txt"
-ALT_PATH = "/mnt/data/Alice’s Adventures in Wonderland.txt"
 
 OUTPUT_TFIDF_CSV = "tfidf_top20_per_chapter.csv"
 OUTPUT_LDA_TOPICS_CSV = "lda_topics.csv"
@@ -148,8 +147,6 @@ def main(data_path: str = None, n_topics: int = 6, top_k_tfidf: int = 20, n_top_
     if data_path is None:
         if os.path.exists(DATA_FILENAME):
             data_path = DATA_FILENAME
-        elif os.path.exists(ALT_PATH):
-            data_path = ALT_PATH
         else:
             raise FileNotFoundError("Could not find the text file.")
     with open(data_path, "r", encoding="utf-8", errors="ignore") as f:
@@ -177,24 +174,24 @@ def main(data_path: str = None, n_topics: int = 6, top_k_tfidf: int = 20, n_top_
     ct.to_csv(OUTPUT_CHAPTER_TOPIC_CSV, index=False)
 
     # Console summaries
-    print("\n=== TF-IDF: Top-5 terms for first 3 chapters ===")
+    print("\nTF-IDF: Top-5 terms for first 3 chapters")
     for i in range(min(3, len(docs))):
         top_terms = (tfidf_df[tfidf_df["doc_id"] == i].sort_values("rank").head(5)["term"].tolist())
         print(f"[{i}] {titles[i]} -> {', '.join(top_terms)}")
 
-    print("\n=== LDA: Top words per topic ===")
+    print("\nLDA: Top words per topic")
     for k in sorted(lda_topics_df["topic"].unique()):
         top_words = (lda_topics_df[lda_topics_df["topic"] == k].sort_values("rank").head(10)["word"].tolist())
         print(f"Topic {k}: {', '.join(top_words)}")
 
-    print("\n=== Chapter -> Dominant topic ===")
+    print("\nChapter -> Dominant topic")
     dom = doc_topic_df.values.argmax(axis=1)
     for i, k in enumerate(dom):
         print(f"[{i:02d}] {titles[i]} => topic {k}")
 
     # Overlap heuristic
     overlap_df = compare_tfidf_lda(tfidf_df, lda_topics_df, top_k_overlap=min(top_k_tfidf, n_top_words_topic))
-    print("\n=== For each chapter: TF-IDF vs LDA topic overlap (best) ===")
+    print("\nFor each chapter: TF-IDF vs LDA topic overlap (best)")
     for i in sorted(tfidf_df['doc_id'].unique()):
         sub = overlap_df[overlap_df['doc_id'] == i].sort_values('overlap', ascending=False)
         if sub.empty:
