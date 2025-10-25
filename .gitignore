@@ -1,1 +1,12 @@
 .venv
+
+# Lab 1
+*.csv
+
+# Lab 2-3
+*.txt
+
+# Lab 4
+Lab_4/test
+Lab_4/train
+Lab_4/val
