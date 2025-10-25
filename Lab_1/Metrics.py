@@ -1,4 +1,3 @@
-# ЛР1 — Рішення: 4 моделі, метрики, ROC/PR, підбір порогу min FN.
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -74,10 +73,10 @@ def main():
 
     metrics_df = pd.DataFrame(results).set_index("model").sort_values("roc_auc", ascending=False)
     print("Model metrics (threshold 0.5)")
-    print(metrics_df[["accuracy", "precision", "recall", "f1"]])
+    print(metrics_df[["accuracy", "precision", "recall", "f1", "log_loss"]])
     print("==================================================================")
     print("\nModel metrics (threshold 0.5)")
-    print(metrics_df[["log_loss", "roc_auc", "tp", "fp", "fn", "tn"]])
+    print(metrics_df[["roc_auc", "tp", "fp", "fn", "tn"]])
 
     # ROC
     plt.figure()
