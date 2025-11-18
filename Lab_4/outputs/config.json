@@ -1,0 +1,14 @@
+{
+  "data_dir": "data",
+  "img_size": [
+    224,
+    224
+  ],
+  "batch_size": 32,
+  "seed": 42,
+  "epochs_base": 12,
+  "epochs_overfit": 50,
+  "overfit_steps": 150,
+  "lr": 0.001,
+  "out_dir": "outputs"
+}
