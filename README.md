@@ -16,6 +16,7 @@ pip install numpy
 pip install pandas
 pip install matplotlib
 pip install scikit-learn
+pip install tensorflow
 ```
 
 ---
@@ -27,3 +28,9 @@ pip install scikit-learn
 ### Download file *data_banknote_authentication.txt* in *ML_Labs\Lab_2*
 ## Lab 3 requirements:
 ### Download file *Alice’s Adventures in Wonderland.txt* in *ML_Labs\Lab_3*
+
+## Lab 4 results:
+### You can find the results for each model in:
+```
+ML_Labs\Lab_4\outputs
+```
